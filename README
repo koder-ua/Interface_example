@@ -1,0 +1,12 @@
+from interface import Interface, ImplementsBase
+
+class MyInterface(Interface):
+    def func(x, y, z):
+        ok(x).is_a(int)
+        ok(y).in_((1,2,3))
+
+class Impl(ImplementsBase):
+    __implements__ = [MyInterface]
+    def func(self, x, y, z=13):
+        pass
+            
