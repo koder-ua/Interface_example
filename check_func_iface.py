@@ -1,6 +1,6 @@
 import inspect
 
-def acceptable_interface(iface_func, impl_func, iface_no_self=False):
+def check_signature_acceptable(iface_func, impl_func, iface_no_self=False):
     # check, that impl_func can be called with any set off arguments
     # with acceptable for iface_func
     
@@ -8,7 +8,8 @@ def acceptable_interface(iface_func, impl_func, iface_no_self=False):
     impl_argspec = inspect.getargspec(impl_func)
     
     if iface_no_self:
-        iface_argspec.args.insert(0, 'self')
+        if iface_argspec.args[0] != 'self':
+            iface_argspec.args.insert(0, 'self')
     
     if iface_argspec.varargs is not None and impl_argspec.varargs is None:
         raise AssertionError("{0} have varargs, while {1} - not".
